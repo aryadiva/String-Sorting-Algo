@@ -80,7 +80,7 @@ public class StringQuickTest2 {
         int i = lowerIndex;
         int j = higherIndex;
         //String pivot = array[lowerIndex + (higherIndex - lowerIndex) / 2];
-        String pivot = array[(int) randIndex];
+        String pivot = array[randIndex];
         counter+=6;
 
         while (i <= j) {
