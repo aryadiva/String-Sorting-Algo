@@ -10,78 +10,73 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class StringQuickTest2 {
+
     static long counter = 0;
-    static long counter_alt = 0;
 
     public static void main(String[] args) throws IOException {
         StringQuickTest2 sorter = new StringQuickTest2();
 
-        File file = new File("src/com/basepak/practice.txt");
+        File file = new File("src/com/basepak/wordList.txt");
         File txt = new File("Sorted.txt");
         FileWriter writer = new FileWriter(txt);
 
         String[] str_list = new String[0];
+        counter+=5;
         try {
             Scanner myReader = new Scanner(file);
             List<String> list = new ArrayList<String>();
+            counter+=2;
 
             while (myReader.hasNext()) {
                 list.add(myReader.next());
-                //System.out.println(data);
+                counter+=1;
             }
-            // System.out.println(list);
-            // System.out.println(list.get(1));
             int length = list.size();
 
             str_list = new String[length];
             str_list = list.toArray(str_list);
-            /*
-            for (String x : str_list) {
-                System.out.println(x);
-            }
 
-             */
             myReader.close();
+            counter+=4;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
             String[] str = str_list;
 
             sorter.quickSort(str, 0, str.length-1);
+            counter+=3;
 
             for (String x : str) {
                 System.out.println('['+x+']');
+                counter+=1;
             }
-            long total_count = counter+counter_alt;
-            System.out.println("Total primitive operations: "+total_count);
+            System.out.println("Total primitive operations: "+counter);
 
             for(int i = 0; i < str.length; i++){
                 writer.write('['+str[i]+']'+'\n');
+                counter+=1;
                 if(i == str.length-1){
-                    writer.write('\n'+"Total primitive operations: "+total_count);
+                    writer.write('\n'+"Total primitive operations: "+counter);
+                    counter+=1;
                 }
             }
             writer.close();
+            counter+=1;
         }
     }
 
     public void quickSort(String[] array, int lowerIndex, int higherIndex) {
-
-        Random rand = new Random();
-
         int arr_length = array.length;
 
         if (array == null || arr_length == 0) {
             counter+=1;
             return;
         }
-        int randIndex = rand.nextInt(arr_length);
 
         int i = lowerIndex;
         int j = higherIndex;
-        //String pivot = array[lowerIndex + (higherIndex - lowerIndex) / 2];
-        String pivot = array[randIndex];
-        counter+=6;
+        String pivot = array[lowerIndex + (higherIndex - lowerIndex) / 2];
+        counter+=7;
 
         while (i <= j) {
             counter+=1;
@@ -117,6 +112,6 @@ public class StringQuickTest2 {
         String temp = array[i];
         array[i] = array[j];
         array[j] = temp;
-        counter_alt+=3;
+        counter+=3;
     }
 }
