@@ -10,28 +10,28 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class StringQuickTest2 {
-
     static long counter = 0;
 
     public static void main(String[] args) throws IOException {
-        StringQuickTest2 sorter = new StringQuickTest2();
+        StringQuickTest2 sorter = new StringQuickTest2(); // Creating an instance of an object to call
 
-        File file = new File("src/com/basepak/wordList.txt");
-        File txt = new File("Sorted.txt");
-        FileWriter writer = new FileWriter(txt);
+        File file = new File("src/com/basepak/wordList.txt"); // Navigate the text file
+        File txt = new File("Sorted.txt"); // creating a new file to store the sorted words
+        FileWriter writer = new FileWriter(txt); // To write to the newly created file
 
-        String[] str_list = new String[0];
+        String[] str_list = new String[0]; // initializing str_list to store the string to array
         counter+=5;
         try {
-            Scanner myReader = new Scanner(file);
-            List<String> list = new ArrayList<String>();
+            Scanner myReader = new Scanner(file); // to scan the content of the file to be read
+            List<String> list = new ArrayList<String>(); // creating an instance of list
             counter+=2;
 
             while (myReader.hasNext()) {
+                // while myReader detect any next line it will add that line
                 list.add(myReader.next());
                 counter+=1;
             }
-            int length = list.size();
+            int length = list.size(); // initialize length size
 
             str_list = new String[length];
             str_list = list.toArray(str_list);
@@ -51,7 +51,9 @@ public class StringQuickTest2 {
                 counter+=1;
             }
             System.out.println("Total primitive operations: "+counter);
+            System.out.println(str.length);
 
+            /* To write the sorted result to external txt file
             for(int i = 0; i < str.length; i++){
                 writer.write('['+str[i]+']'+'\n');
                 counter+=1;
@@ -61,11 +63,14 @@ public class StringQuickTest2 {
                 }
             }
             writer.close();
-            counter+=1;
+
+             */
+            //counter+=1;
         }
     }
 
     public void quickSort(String[] array, int lowerIndex, int higherIndex) {
+        Random rand = new Random();
         int arr_length = array.length;
 
         if (array == null || arr_length == 0) {
@@ -75,7 +80,14 @@ public class StringQuickTest2 {
 
         int i = lowerIndex;
         int j = higherIndex;
-        String pivot = array[lowerIndex + (higherIndex - lowerIndex) / 2];
+
+        String pivot = array[lowerIndex + (higherIndex - lowerIndex) / 2]; // Best case scenario
+
+        //int rand_index1 = rand.nextInt(142301); // Average case = error?
+        //String pivot = array[rand_index1-1];
+
+        //String pivot = array[higherIndex];  // worst case scenario
+
         counter+=7;
 
         while (i <= j) {
