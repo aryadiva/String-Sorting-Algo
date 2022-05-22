@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.lang.CharSequence.compare;
+
 public class InsertionSort {
     static long counter = 0;
 
     public static void main(String[] args) throws IOException {
         InsertionSort sorter = new InsertionSort(); // Creating an instance of a method to call
-        File file = new File("src/com/basepak/clean_wordList.txt"); // Navigate the text file
+        File file = new File("src/com/basepak/clean_wordList.txt"); // Navigate the text file to be read
 
         String[] str_list = new String[0]; // initializing str_list to store the string to array
         try {
@@ -31,31 +33,37 @@ public class InsertionSort {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
-            sorter.insertionSortAscending(str_list, str_list.length);
+            // calling insertionsort method
+            sorter.insertionSort(str_list, str_list.length);// calling the insertionSort function
 
+            // displaying the sorted list
             for (String x : str_list) {
                 System.out.println(x);
             }
-            System.out.println("Total primitive operations: "+counter);
+            System.out.println("Insertion Sort Primitive Operations count: " + counter);
         }
     }
 
-    public static String[] insertionSortAscending(String[] array, int a) {
-        String temp = "";
-        int i = 0, j = 0;
-        for (i = 0; i < a; i++){
-            for (j = i + 1; j < a; j++) {
-
-                if (array[i].compareToIgnoreCase(array[j]) > 0) {
-                    temp = array[i];
-                    array[i] = array[j];
-                    array[j] = temp;
-                }
+    public static String[] insertionSort(String[] array, int length) {
+        counter++;
+        for (int i = 1; i < length; i++) {
+            counter += 2;//count for the for loop condition
+            String key = array[i]; //store the element in the key
+            counter++; //count for the assign value
+            int j = i - 1;
+            counter++;//count for the assign value
+            while (j >= 0 && compare(key, array[j]) < 0) { //compare the element in the key and the element in the sorted array
+                //if element is smaller than current one, move it to the next.
+                array[j + 1] = array[j];
+                j--;
+                counter += 3;//count for the assign value and decrement
             }
-            counter+=j;
-            System.out.println(i+" : "+counter);
+            array[j + 1] = key;
+            counter += 2;//count for the assign value
         }
         return array;
     }
-
 }
+
+
+
