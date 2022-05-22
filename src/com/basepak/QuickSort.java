@@ -7,68 +7,47 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Random;
 
-public class StringQuickTest2 {
+public class QuickSort {
     static long counter = 0; // initialize counter for counting primitive operations
 
     public static void main(String[] args) throws IOException {
-        StringQuickTest2 sorter = new StringQuickTest2(); // Creating an instance of an object to call
-        counter+=2; // creating an object and assigning it to a variable
+        QuickSort sorter = new QuickSort(); // Creating an instance of method to call
 
         File file = new File("src/com/basepak/clean_wordList.txt"); // Navigate the text file
-        File txt = new File("Sorted.txt"); // creating a new file to store the sorted words
+        File txt = new File("Quick-Sorted.txt"); // creating a new file to store the sorted words
         FileWriter writer = new FileWriter(txt); // To write to the newly created file
-        counter+=6; // each operations above has 2 primitive operations
 
         String[] str_list = new String[0]; // initializing str_list to store the string to array
-        counter+=2; // creating/initializing array and assigning it to a string array
         try {
             Scanner myReader = new Scanner(file); // to scan the content of the file to be read
             List<String> list = new ArrayList<String>(); // creating an instance of list
-            counter+=4; // myReader & list has both creating its instance and assigning them to a variable
-
-            counter+=2; // creating while loop operation that has 1 condition count as 2 operation
             while (myReader.hasNext()) {
                 // while myReader detect any next line it will add that line to list
                 list.add(myReader.next());
-                counter+=1; // each adding new element = 1 operation
             }
-            int length = list.size(); // initialize length size
-            counter+=2; // assigning list.size() as length and declare it as an integer variable
 
+            int length = list.size(); // initialize length size
             str_list = new String[length]; // creating a new array to store the sorted words
             str_list = list.toArray(str_list); // converting list to array
-            counter+=3;
-            // assigning length as array size in str_list = 1 operation, and converting to array = 1 operation
 
             myReader.close(); // closing myReader
-            counter+=1; // closing function count as 1 operation
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
             sorter.quickSort(str_list, 0, str_list.length-1);
-            counter+=4; // calling an object = 1 operation
-            // object has 3 parameter to be passed = 3 operation
 
-            counter+=3; // creating a for loop count as 1 operation
-            // creating a String x in str_list count as 2 operation
             for (String x : str_list) {
-                System.out.println('['+x+']');
-                counter+=1; // printing 1 element in the array count as 1 operation
+                System.out.println(x);
             }
 
             //-------To write the sorted result to external txt file
-            counter+=3; // creating a for loop that accept 3 condition count as 3 operation
             for(int i = 0; i < str_list.length; i++){
-                writer.write('['+str_list[i]+']'+'\n'); // writing each element(i) in array to a new file
-                counter+=1; // writing each element to a file count as 1 operation
+                writer.write(str_list[i]+'\n'); // writing each element(i) in array to a new file
                 if(i == str_list.length-1){
                     writer.write('\n'+"Total primitive operations: "+counter);
-                    counter+=1; // to write the total primitive operations in the new sorted file
                 }
             }
-            counter+=2; // closing writer & printing out total operations count as 2 operation
             writer.close();
             System.out.println("Total primitive operations: "+counter);
             // to display the total primitive operations in Java IDE(Intellij)
@@ -76,7 +55,9 @@ public class StringQuickTest2 {
     }
 
     public void quickSort(String[] array, int lowerIndex, int higherIndex) throws IOException {
-        // no need to add counter for calling this method, because the counter has been counted in main when calling this method
+        // calling this method counted as 1 operation
+        // and passing 3 parameter counted as 3 operation
+        counter+=4;
 
         counter+=2; // creating an if statement that accept either/both of the condition
         // if the array is null or has length of 0 return this method without doing anything
@@ -87,15 +68,14 @@ public class StringQuickTest2 {
 
         int i = lowerIndex; // set i as the lower index
         int j = higherIndex; // set j as the high index
-        counter+=4; // setting i & j and assigning both of them as integer count as 2 operation each
+        counter+=4; // creating i & j and assigning both of them as integer count as 2 operation each
 
         /*----------------------------------------------------------
-        Random rand = new Random();
-        int rand_index1 = rand.nextInt(j); // Average case = error
-        String pivot = array[rand_index1];
+        String pivot = array[higherIndex];  // worst case
+        String pivot = array[lowerIndex];   // worst case
 
-        String pivot = array[higherIndex];  // worst case scenario
-        String pivot = array[lowerIndex];   // worst case scenario
+        // average case for quicksort is referring twhen the array elements in the  list is in a random order
+        // so average case has already been implemented and has the same time complexity as best case
          ---------------------------------------------------------*/
 
         // the pivot is based on the middle element of the whole array
@@ -110,32 +90,35 @@ public class StringQuickTest2 {
         while (i <= j) {
             // while element i in array is lexicographically less than the pivot
             // i will keep incrementing until the condition is false
+            counter+=2; // comparing i and pivot count as 2 operation increment i count as 1 operation
             while (array[i].compareToIgnoreCase(pivot) < 0) {
                 i++;
-                counter+=3; // comparing i and pivot count as 2 operation and increment i count as 1 operation
+                counter+=1; // increment i count as 1 operation
             }
 
             // while element j in array is lexicographically greater than the pivot
             // j will keep decrementing until the condition is false
+            counter+=2; // comparing j and pivot count as 2 operation
             while (array[j].compareToIgnoreCase(pivot) > 0) {
                 j--;
-                counter+=3; // comparing j and pivot count as 2 operation and decrement j count as 1 operation
+                counter+=1; // decrement j count as 1 operation
             }
 
             // if i is lower or equal than j
+            counter+=2; // comparing i & j count as 2 operation
             if (i <= j) {
                 // calling swap method
                 swap(array, i, j);
                 i++;
                 j--;
-                counter+=6; // calling a method that accept 3 parameter to be passed count as 4 operation
+                counter+=6; // calling a method count as 1 operation
+                // the method passes 3 arguments count as 3 operation
                 // increment & decrement count as 2 operation
             }
         }
         //call quickSort recursively based on given condition
 
-        counter+=3; // creating an if statement count as 1 operation
-        // comparing 2 element in the if statement count as 2 operation
+        counter+=2; // comparing 2 element in the if statement count as 2 operation
         if (lowerIndex < j) {
             // calling a method that passes 3 parameter count as 4 operation
             counter+=4;
@@ -143,8 +126,8 @@ public class StringQuickTest2 {
             // but this time the parameter to be passed instead of higher index it will be j
             quickSort(array, lowerIndex, j);
         }
-        counter+=3; // creating an if statement count as 1 operation
-        // comparing 2 element in the if statement count as 2 operation
+
+        counter+=2; // comparing 2 element in the if statement count as 2 operation
         if (i < higherIndex) {
             // calling a method that passes 3 parameter count as 4 operation
             counter+=4;
@@ -155,13 +138,13 @@ public class StringQuickTest2 {
     }
 
     void swap(String[] array, int i, int j) {
+        // creating temp and assigning array[i] as temp count as 2 operation
+        // swapping array[i] & array[j] count as 1 operation
+        // assigning temp as array[j] count as 1 operation
+        counter+=4;
         // the swap method is for swapping places between i & j in the array
         String temp = array[i];
         array[i] = array[j];
         array[j] = temp;
-        counter+=4;
-        // creating temp and assigning array[i] as temp count as 2 operation
-        // swapping array[i] & array[j] count as 1 operation
-        // assigning temp as array[j] count as 1 operation
     }
 }
