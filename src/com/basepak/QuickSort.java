@@ -14,9 +14,9 @@ public class QuickSort {
     public static void main(String[] args) throws IOException {
         QuickSort sorter = new QuickSort(); // Creating an instance of method to call
 
-        File file = new File("src/com/basepak/clean_wordList.txt"); // Navigate the text file
-        File txt = new File("Quick-Sorted.txt"); // creating a new file to store the sorted words
-        FileWriter writer = new FileWriter(txt); // To write to the newly created file
+        File file = new File("src/com/basepak/clean_wordList.txt"); // Navigate the text file to be read
+        File txt = new File("src/com/basepak/Quick-Sorted.txt"); // creating a new file to store the sorted words
+        FileWriter writer = new FileWriter(txt); // To write to the newly created sorted file
 
         String[] str_list = new String[0]; // initializing str_list to store the string to array
         try {
@@ -35,8 +35,10 @@ public class QuickSort {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
+            // calling the quicksort method
             sorter.quickSort(str_list, 0, str_list.length-1);
 
+            // printing the sorted list
             for (String x : str_list) {
                 System.out.println(x);
             }
@@ -49,8 +51,8 @@ public class QuickSort {
                 }
             }
             writer.close();
-            System.out.println("Total primitive operations: "+counter);
             // to display the total primitive operations in Java IDE(Intellij)
+            System.out.println("Total primitive operations: "+counter);
         }
     }
 
@@ -60,7 +62,7 @@ public class QuickSort {
         counter+=4;
 
         counter+=2; // creating an if statement that accept either/both of the condition
-        // if the array is null or has length of 0 return this method without doing anything
+        // if the array is null or has length of 0, return this method without doing anything
         if (array == null || array.length == 0) {
             counter+=1; // returning nothing count as 1 operation
             return;
